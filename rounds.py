@@ -1,4 +1,4 @@
-from quotes import philosopher_quotes
+from quotes import PHILOSOPHER_QUOTES
 import random
 import textwrap
 
@@ -45,9 +45,9 @@ def print_round(round_number):
 
 
 def get_quote():
-    philosophers = list(philosopher_quotes.keys())
+    philosophers = list(PHILOSOPHER_QUOTES.keys())
     philosopher = random.choice(philosophers)
-    quote = random.choice(philosopher_quotes[philosopher])
+    quote = random.choice(PHILOSOPHER_QUOTES[philosopher])
 
     width = 80
 
