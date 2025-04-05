@@ -70,9 +70,9 @@ def intro():
     player_character = Player(player_name)
 
     print(f"\n[{player_character.name.upper()} STATS]")
-    print(f"- Lives: {player_character.lives}")
-    print(f"- Total Points: {player_character.points}")
-    print(f"- Enchiridion: 'currently empty'")
+    print(f"• Lives: {player_character.lives}")
+    print(f"• Total Points: {player_character.points}")
+    print(f"• Enchiridion: 'currently empty'")
 
     start_game = input("\nAre you ready to begin your journey [y/n]?\n> ")
     if start_game == "y":

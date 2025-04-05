@@ -1,5 +1,6 @@
 def farewell(player_character):
-    print("We leave our hero {player_character.name} for now...")
+    print(f"We leave our hero {player_character.name} for now...")
+    player_character.show_stats()
     print("""
 ████████╗██╗  ██╗ █████╗ ███╗   ██╗██╗  ██╗███████╗    ███████╗ ██████╗ ██████╗     
 ╚══██╔══╝██║  ██║██╔══██╗████╗  ██║██║ ██╔╝██╔════╝    ██╔════╝██╔═══██╗██╔══██╗    

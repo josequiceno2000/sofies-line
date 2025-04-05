@@ -92,8 +92,13 @@ def round_result(player_character, user_choice, quote, philosopher, philosophers
     print("=" * 31)
     player_character.gain_wisdom(quote, philosopher)
 
-    print()
-    print(f"\n[{player_character.name.upper()} STATS]")
-    print(f"- Lives: {player_character.lives}")
-    print(f"- Total Points: {player_character.points}")
-    print(f"- Enchiridion: {player_character.enchiridion}")
+def intermission(player_character):
+    intermission_choice = input("\nSELECT: [s] Stats | [q] quit | [c] continue\n> ")
+
+    if intermission_choice == "s":
+        player_character.show_stats()
+        print("\nReady to continue?")
+        intermission_choice = input("SELECT: [q] quit | [c] continue\n> ")
+        
+    return intermission_choice
+    
