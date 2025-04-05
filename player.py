@@ -13,7 +13,8 @@ class Player:
 
     def gain_wisdom(self, phrase, author):
         if author in self.enchiridion:
-            self.enchiridion[author].append(phrase)
+            if phrase not in self.enchiridion[author]:
+                self.enchiridion[author].append(phrase)
         else:
             self.enchiridion[author] = [phrase]
     
