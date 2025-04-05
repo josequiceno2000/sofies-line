@@ -3,7 +3,8 @@ import random
 import textwrap
 
 def get_quote():
-    philosopher = random.choice(list(philosopher_quotes.keys()))
+    philosophers = list(philosopher_quotes.keys())
+    philosopher = random.choice(philosophers)
     quote = random.choice(philosopher_quotes[philosopher])
 
     width = 80
@@ -19,5 +20,15 @@ def get_quote():
     print(wrapped_quote)
     print()
     print("=" * width)
-    print("\n[a] Aristotle\n[b] Aquinas\n[c] Albertus Magnus\n[d] Socrates\n[e] Plato\n")
+
+    random.shuffle(philosophers)
+    print()
+    for i in range(len(philosophers)):
+        print(f"[{i + 1}] {philosophers[i]}")
+
+    return (philosopher, quote, philosophers)
     
+def round_result(user_choice, philosopher, philosophers):
+    if user_choice - 1 == philosophers.index(philosopher):
+        return True   
+    return False

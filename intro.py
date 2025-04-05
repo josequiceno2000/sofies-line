@@ -73,3 +73,4 @@ def intro():
     print(f"- Lives: {player_character.lives}")
     print(f"- Total Points: {player_character.points}")
     print(f"- Enchiridion: ['currently empty']")
+    return player_character

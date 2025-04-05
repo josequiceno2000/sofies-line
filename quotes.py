@@ -3,7 +3,7 @@ philosopher_quotes = {
         "The unexamined life is not worth living.",
         "To know, is to know that you know nothing. That is the meaning of true knowledge.",
         "Wonder is the beginning of wisdom.",
-        "Let him that would move the world, first move himself."
+        "Let him that would move the world, first move himself.",
         "Strong minds discuss ideas, average minds discuss events, weak minds discuss people."
     ],
     "Plato": [
