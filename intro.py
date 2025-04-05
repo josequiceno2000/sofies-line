@@ -1,3 +1,4 @@
+from player import Player
 def intro():
     print("""
 ========================================================================================================
@@ -65,3 +66,11 @@ def intro():
                   .-*%@@@@@%%#=:                    
 """)
     print(f"\nAh yes, of course. This is the story of {player_name}.")
+    
+    player_character = Player(player_name)
+
+    print(f"\n[{player_character.name.upper()} STATS]")
+    print(f"Correct Answers: {player_character.correct}")
+    print(f"Wrong Answers: {player_character.wrong}")
+    print(f"Total Points: {player_character.points}")
+    print(f"Enchiridion: {player_character.correct}")
