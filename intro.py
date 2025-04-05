@@ -70,7 +70,6 @@ def intro():
     player_character = Player(player_name)
 
     print(f"\n[{player_character.name.upper()} STATS]")
-    print(f"Correct Answers: {player_character.correct}")
-    print(f"Wrong Answers: {player_character.wrong}")
-    print(f"Total Points: {player_character.points}")
-    print(f"Enchiridion: {player_character.correct}")
+    print(f"- Lives: {player_character.lives}")
+    print(f"- Total Points: {player_character.points}")
+    print(f"- Enchiridion: ['currently empty']")
