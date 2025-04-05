@@ -1,6 +1,6 @@
 from player import Player
 
-def intro() -> None:
+def intro() -> dict:
     """
     Displays introduction to the game, allows user to choose a name for their character, and displays initial character stats.
     
