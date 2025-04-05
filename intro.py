@@ -12,4 +12,6 @@ def intro():
 ==      =====    ====  ========    ==        =======      ========        ==    ==  =======  ==        =
 ========================================================================================================
 """)
-    print("\nIn a land ravaged by the rot of brain, one survivor ventures forth from the cave in search of the light.")
+    print("\nIn a land ravaged by the rot of brain, one man ventures forth from the cave, searching of the light.")
+    player_name = input("And that brave soul's name was... > ")
+    print(player_name)
