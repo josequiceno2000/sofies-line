@@ -70,17 +70,21 @@ def get_quote():
     return (philosopher, quote, philosophers)
     
 def round_result(player_character, user_choice, quote, philosopher, philosophers):
-    print("\n" + "=" * 31)
+    print("\n" + "=" * 37)
     if user_choice - 1 == philosophers.index(philosopher):
-        correct_statement = "[ Correct! +5 points ]"
-        print(correct_statement.center(31))
+        result_statement = "Correct! [ +5 points ]"
         player_character.gain_points(5)
     else:
-        wrong_statement = "[ Wrong! -1 Life ]"
-        print(wrong_statement.center(31))
+        result_statement = "Wrong! [ -1 Life ]"
         player_character.lose_life()
-    print("*** Updating Enchiridion... ***")
-    print("=" * 31)
+    print(result_statement.center(37))
+    print()
+    attribution = (f"The right answer was {philosopher.upper()}")
+    print(attribution.center(37))
+    print()
+    enchiridion_update = ("*** Updating Enchiridion... ***")
+    print(enchiridion_update.center(37))
+    print("=" * 37)
     player_character.gain_wisdom(quote, philosopher)
 
 def intermission(player_character):
