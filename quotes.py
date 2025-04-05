@@ -1,4 +1,8 @@
-philosopher_quotes = {
+"""
+Contains a dictionary of philosopher quotes.
+"""
+
+PHILOSOPHER_QUOTES = {
     "Socrates": [
         "The unexamined life is not worth living.",
         "To know, is to know that you know nothing. That is the meaning of true knowledge.",
