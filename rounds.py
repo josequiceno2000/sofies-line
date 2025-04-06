@@ -1,7 +1,11 @@
+from colorama import Fore, Style, init
 from quotes import PHILOSOPHER_QUOTES
 from player import Player
 import random
 import textwrap
+import re
+
+init()
 
 ROUND_ART = {
         1: """
@@ -46,7 +50,7 @@ RESULT_WIDTH = 37
 
 def print_round(round_number: int) -> None:
     """Takes a round number and prints the appropriate ASCII art."""
-    print(ROUND_ART.get(round_number, "Round Art Not Found")) 
+    print(Fore.CYAN + ROUND_ART.get(round_number, "Round Art Not Found") + Style.RESET_ALL) 
 
 def get_unique_random_philosophers(philosopher: str) -> list:
     """Returns a list of unique philosophers, including the given philosopher"""
@@ -100,30 +104,42 @@ def get_quote(difficulty: int, seen_quotes: list) -> dict:
 def round_result(player_character: Player, user_choice: int, quote: str, philosopher: str, philosophers: list) -> None:
     """
     Displays the round results and updates player stats.
-
-    Args:
-        player_character (Player): The player character object.
-        user_choice (int): The selected number representing a philosopher.
-        quote (str): The philosophical quote in question. 
-        philosopher (str): The rightful speaker of the quote.
-        philosophers (list): List of potential speakers of the quote.
     """
 
     print("\n" + "=" * RESULT_WIDTH)
     if user_choice - 1 == philosophers.index(philosopher):
-        result_statement = "Correct! [ +5 points ]"
+        result_statement = Fore.GREEN + Style.BRIGHT + "Correct! [+5 points]" + Style.RESET_ALL
         player_character.gain_points(5)
     else:
-        result_statement = "Wrong! [ -1 Life ]"
+        result_statement = Fore.RED + Style.BRIGHT + "Wrong! [-1 Life]" + Style.RESET_ALL
         player_character.lose_life()
-    print(result_statement.center(RESULT_WIDTH) + "\n")
-    attribution = (f"The right answer was {philosopher.upper()}")
-    print(attribution.center(RESULT_WIDTH) + "\n")
-    enchiridion_update = ("*** Updating Enchiridion... ***")
-    print(enchiridion_update.center(RESULT_WIDTH))
+
+    # Calculate padding without color codes
+    clean_result_statement = re.sub(r'\x1b\[[0-9;]*m', '', result_statement)
+    padding = (RESULT_WIDTH - len(clean_result_statement)) // 2
+
+    # Apply padding to the colored string
+    padded_result_statement = " " * padding + result_statement + " " * padding
+
+    print(padded_result_statement + "\n")
+
+    attribution = "The right answer was " + Fore.CYAN + Style.BRIGHT + f"{philosopher.upper()}" + Style.RESET_ALL
+    clean_attribution = re.sub(r'\x1b\[[0-9;]*m', '', attribution)
+    padding_attribution = (RESULT_WIDTH - len(clean_attribution)) // 2
+    padded_attribution = " " * padding_attribution + attribution + " " * padding_attribution
+
+    print(padded_attribution + "\n")
+
+    enchiridion_update = "*** Updating Enchiridion... ***"
+    clean_enchiridion_update = re.sub(r'\x1b\[[0-9;]*m', '', enchiridion_update)
+    padding_enchiridion = (RESULT_WIDTH - len(clean_enchiridion_update)) // 2
+    padded_enchiridion = " " * padding_enchiridion + enchiridion_update + " " * padding_enchiridion
+
+    print(padded_enchiridion)
     print("=" * RESULT_WIDTH)
 
     player_character.gain_wisdom(quote, philosopher)
+
 
 def intermission(player_character: Player) -> str:
     """Handles intermission choices."""
