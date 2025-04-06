@@ -2,7 +2,9 @@ from intro import intro
 from farewell import farewell
 from rounds import print_round, get_quote, round_result, intermission
 
-NUM_ROUNDS = 5
+NUM_ROUNDS = 8
+START_DIFFICULTY = 1
+DIFFUCLTY_INCREASE = 1
 
 def main():
     """Runs main gaime loop with intro, rounds, and farewell."""
@@ -18,10 +20,15 @@ def main():
     # Rounds
     round_number = 1
     intermission_choice = "c"
+    current_difficulty = START_DIFFICULTY
 
-    while round_number < NUM_ROUNDS and player_character.lives > 0 and intermission_choice != "q":
+    while round_number <= NUM_ROUNDS and player_character.lives > 0 and intermission_choice != "q":
         print_round(round_number)
-        quote_data = get_quote()
+        try:
+            quote_data = get_quote(current_difficulty)
+        except ValueError as e:
+            print(f"Error: {e}")
+            break
         philosopher = quote_data["philosopher"]
         quote = quote_data["quote"]
         philosophers = quote_data["philosophers"]
@@ -39,6 +46,7 @@ def main():
         round_result(player_character, user_choice, quote, philosopher, philosophers)
         intermission_choice = intermission(player_character)
         round_number += 1
+        current_difficulty += DIFFUCLTY_INCREASE
     
     # Farewell sequence
     farewell(player_character)

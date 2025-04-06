@@ -48,33 +48,55 @@ def print_round(round_number: int) -> None:
     """Takes a round number and prints the appropriate ASCII art."""
     print(ROUND_ART.get(round_number, "Round Art Not Found")) 
 
+def get_unique_random_philosophers(philosopher: str) -> list:
+    """Returns a list of unique philosophers, including the given philosopher"""
+    all_philosophers = list(PHILOSOPHER_QUOTES.keys())
+    available_philosophers = [p for p in all_philosophers if p != philosopher]
 
-def get_quote() -> dict:
+    if len(available_philosophers) < 3:
+        raise ValueError("Not enough philosophers to select 3 unique candidates.")
+    
+    random_philosophers = random.sample(available_philosophers, k=3)
+    return random_philosophers + [philosopher]
+
+def get_quote(difficulty: int) -> dict:
     """
     Gets a random quote and sets up the question.
+
+    Args:
+        difficulty (int): Positive integer between 1 and 10 which dictates question difficulty.
 
     Returns:
         dict: Dict with philosopher, quote, and a list of possible philosophers.
     """
 
-    philosophers = list(PHILOSOPHER_QUOTES.keys())
-    philosopher = random.choice(philosophers)
-    quote = random.choice(PHILOSOPHER_QUOTES[philosopher])
+    eligible_quotes = []
+    for philosopher, quotes in PHILOSOPHER_QUOTES.items():
+        for quote_data in quotes:
+            if quote_data["difficulty"] <= difficulty:
+                eligible_quotes.append({"philosopher": philosopher, "quote_data": quote_data})
+    
+    if not eligible_quotes:
+        raise ValueError(f"No quotes found for difficult level {difficulty}.")
+
+    chosen_quote = random.choice(eligible_quotes)
+    philosopher = chosen_quote["philosopher"]
+    quote = chosen_quote["quote_data"]["text"]
+    philosophers = get_unique_random_philosophers(philosopher)
 
     print("=" * QUESTION_WIDTH + "\n")
-    centered_question = "Who said:".center(QUESTION_WIDTH)
-    centered_quote = f"{quote}".center(QUESTION_WIDTH)
-    wrapped_quote = textwrap.fill(centered_quote, width=QUESTION_WIDTH)
-    print(centered_question + "\n")
+    print("Who said:".center(QUESTION_WIDTH) + "\n")
+    wrapped_quote = textwrap.fill(quote, width=QUESTION_WIDTH)
     print(wrapped_quote + "\n")
     print("=" * QUESTION_WIDTH + "\n")
 
     random.shuffle(philosophers)
-    for i in range(len(philosophers)):
-        print(f"[{i + 1}] {philosophers[i]}")
+    for index, author in enumerate(philosophers):
+        print(f"[{index + 1}] {author}")
 
     return {"philosopher": philosopher, "quote": quote, "philosophers": philosophers}
-    
+
+
 def round_result(player_character: Player, user_choice: int, quote: str, philosopher: str, philosophers: list) -> None:
     """
     Displays the round results and updates player stats.
