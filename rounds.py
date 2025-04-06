@@ -59,7 +59,7 @@ def get_unique_random_philosophers(philosopher: str) -> list:
     random_philosophers = random.sample(available_philosophers, k=3)
     return random_philosophers + [philosopher]
 
-def get_quote(difficulty: int) -> dict:
+def get_quote(difficulty: int, seen_quotes: list) -> dict:
     """
     Gets a random quote and sets up the question.
 
@@ -73,7 +73,7 @@ def get_quote(difficulty: int) -> dict:
     eligible_quotes = []
     for philosopher, quotes in PHILOSOPHER_QUOTES.items():
         for quote_data in quotes:
-            if quote_data["difficulty"] <= difficulty:
+            if quote_data["difficulty"] <= difficulty and quote_data["text"] not in seen_quotes:
                 eligible_quotes.append({"philosopher": philosopher, "quote_data": quote_data})
     
     if not eligible_quotes:

@@ -21,16 +21,18 @@ def main():
     round_number = 1
     intermission_choice = "c"
     current_difficulty = START_DIFFICULTY
+    seen_quotes = []
 
     while round_number <= NUM_ROUNDS and player_character.lives > 0 and intermission_choice != "q":
         print_round(round_number)
         try:
-            quote_data = get_quote(current_difficulty)
+            quote_data = get_quote(current_difficulty, seen_quotes)
         except ValueError as e:
             print(f"Error: {e}")
             break
         philosopher = quote_data["philosopher"]
         quote = quote_data["quote"]
+        seen_quotes.append(quote)
         philosophers = quote_data["philosophers"]
 
         while True:
